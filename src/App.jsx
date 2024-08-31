@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import ProductList from './ProductList';
+import CartSlice from './CartSlice';
 import './App.css';
 import AboutUs from './AboutUs';
 
