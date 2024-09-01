@@ -1,15 +1,38 @@
-import React, { useState,useEffect } from 'react';
-import './ProductList.css'
-import CartItem from './CartItem';
-import addItem from "./CartSlice";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { addItem } from './CartSlice';
+import CartItem from './CartItem'
 import { useDispatch } from 'react-redux';
-
+import { useHistory } from 'react-router-dom';
+import './ProductList.css';
 function ProductList() {
     const dispatch = useDispatch();
     const [showCart, setShowCart] = useState(false); 
     const [addedToCart, setAddedToCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-
+    const handleCartClick = (e) => {
+        e.preventDefault();
+        setShowCart(true); // Set showCart to true when cart icon is clicked
+    };
+    const handlePlantsClick = (e) => {
+        e.preventDefault();
+        setShowPlants(true); // Set showAboutUs to true when "About Us" link is clicked
+        setShowCart(false); // Hide the cart when navigating to About Us
+    };
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product));
+        
+        setAddedToCart((addedToCart) => ({
+         ...addedToCart,
+        [product.name]: true // Set the product name as key and value as true to indicate it's added to cart
+       }));
+    };
+    const handleContinueShopping = () => {
+        alert("in product list");
+        
+        history.goBack(); // Go back to the previous page
+        setShowCart(false);
+    };
     const plantsArray = [
         {
             category: "Air Purifying Plants",
@@ -237,28 +260,7 @@ function ProductList() {
     fontSize: '30px',
     textDecoration: 'none',
    }
-   const handleCartClick = (e) => {
-    e.preventDefault();
-    setShowCart(true); // Set showCart to true when cart icon is clicked
-};
-const handlePlantsClick = (e) => {
-    e.preventDefault();
-    setShowPlants(true); // Set showAboutUs to true when "About Us" link is clicked
-    setShowCart(false); // Hide the cart when navigating to About Us
-};
-const handleAddToCart = (product) => {
-   dispatch(addItem(product))
-    .alert("Dispatched")
-    .setAddedToCart((prevState) => ({
-     .
-     ..prevState,
-    [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
-   }));
-};
-   const handleContinueShopping = (e) => {
-    e.preventDefault();
-    setShowCart(false);
-  };
+
     return (
         <div>
              <div className="navbar" style={styleObj}>
