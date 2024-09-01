@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { addItem } from './CartSlice';
 import CartItem from './CartItem'
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import './ProductList.css';
 function ProductList() {
     const dispatch = useDispatch();
@@ -27,10 +26,7 @@ function ProductList() {
         [product.name]: true // Set the product name as key and value as true to indicate it's added to cart
        }));
     };
-    const handleContinueShopping = () => {
-        alert("in product list");
-        
-        history.goBack(); // Go back to the previous page
+    const handleContinueShopping = (e) => {
         setShowCart(false);
     };
     const plantsArray = [
